@@ -7,25 +7,26 @@ jobs:
   test-node:
     # Install node dependencies and run tests
     executor: node/default
+    working_directory: ../
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: npm
-      - run: Installation
+      - run:
           name: Installtion 
           command: npm insatll
       - run:
           name: Run tests
           command: npm test --passWithNoTests
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
-      - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+  # deploy:
+  #   # This is an example deploy job, not actually used by the workflow
+  #   docker:
+  #     - image: cimg/base:stable
+  #   steps:
+  #     # Replace this with steps to deploy to users
+  #     - run:
+  #         name: deploy
+  #         command: '#e.g. ./deploy.sh'
 workflows:
   build-and-test:
     jobs:
