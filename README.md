@@ -14,4 +14,5 @@ Tools and Technologies Used:
 - Slack: Notifications and team communication.
 
 ## We will run the SonarQube on Docker
-```bash docker run -d --name sonar -p 9000:9000 sonarqube:lts-community```
+```bash
+docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
