@@ -1,0 +1,30 @@
+version: 2.1
+jobs:
+  run_tests:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run:
+          name: Install npm dependencies
+          commands:
+            npm install --save
+  build_dokcer_image:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: false
+      - run:
+          name: Build Docker image
+          command: |
+            dokcer build -t snaket2628/web-application:latest .
+            echo $DOCKER_PASSWORD | docker login -u snaket2628 --password-stdin
+            docker push snaket2628/web-application:latest
+
+workflows:
+  build_test:
+    jobs:
+      - run_tests
+      - build_dokcer_image
