@@ -13,7 +13,7 @@ Tools and Technologies Used:
 - Grafana & Prometheus: Monitoring and observability of the application.
 - Slack: Notifications and team communication.
 
-## For the CircleCI you can navigate to [this URL] (https://circleci.com/signup/)
+## For the CircleCI you can navigate to [this URL](https://circleci.com/signup/)
 
 ## We will run the SonarQube on Docker
 ```bash
