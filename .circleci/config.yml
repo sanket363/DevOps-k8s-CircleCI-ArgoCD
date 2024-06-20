@@ -1,36 +1,30 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:node:.
 version: 2.1
-orbs:
-  node: circleci/node@5
 jobs:
-  test-node:
-    # Install node dependencies and run tests
-    executor: node/default
-    working_directory: ../
+  run_tests:
+    docker:
+      - image: circleci/node:12
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run:
-          name: Installtion 
-          command: npm insatll
+          name: Install npm dependencies
+          commands:
+            npm install --save
+  build_dokcer_image:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: false
       - run:
-          name: Run tests
-          command: npm test --passWithNoTests
-  # deploy:
-  #   # This is an example deploy job, not actually used by the workflow
-  #   docker:
-  #     - image: cimg/base:stable
-  #   steps:
-  #     # Replace this with steps to deploy to users
-  #     - run:
-  #         name: deploy
-  #         command: '#e.g. ./deploy.sh'
+          name: Build Docker image
+          command: |
+            dokcer build -t snaket2628/web-application:latest .
+            echo $DOCKER_PASSWORD | docker login -u snaket2628 --password-stdin
+            docker push snaket2628/web-application:latest
+
 workflows:
-  build-and-test:
+  build_test:
     jobs:
-      - test-node
-    # - deploy:
-    #     requires:
-    #       - test-node
+      - run_tests
+      - build_dokcer_image
