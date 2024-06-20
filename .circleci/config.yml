@@ -13,6 +13,7 @@ jobs:
           pkg-manager: npm
       - run:
           name: Run tests
+          command: npm install
           command: npm test --passWithNoTests
   deploy:
     # This is an example deploy job, not actually used by the workflow
