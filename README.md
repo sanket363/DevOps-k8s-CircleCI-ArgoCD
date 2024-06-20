@@ -13,3 +13,5 @@ Tools and Technologies Used:
 - Grafana & Prometheus: Monitoring and observability of the application.
 - Slack: Notifications and team communication.
 
+## We will run the SonarQube on Docker
+```docker run -d --name sonar -p 9000:9000 sonarqube:lts-community```
